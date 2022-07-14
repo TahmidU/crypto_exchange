@@ -7,10 +7,11 @@ export const Container = styled.div`
 
   > span:first-child {
     font-weight: bold;
-    font-size: xx-large;
+    ${({ theme }) => theme.fonts.main.massive};
   }
 
   > span:last-child {
+    ${({ theme }) => theme.fonts.main.big};
   }
 `;
 Container.displayName = "Container";
