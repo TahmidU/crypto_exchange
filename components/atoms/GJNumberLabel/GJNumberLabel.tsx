@@ -1,11 +1,19 @@
+import { Container } from "./styles";
 import { ReactElement } from "react";
 
-interface IGJNumberLabelProps {}
+interface IGJNumberLabelProps {
+  amount: number;
+  desc: string;
+}
 
-export default function GJNumberLabel({}: IGJNumberLabelProps): ReactElement {
+export default function GJNumberLabel({
+  amount,
+  desc,
+}: IGJNumberLabelProps): ReactElement {
   return (
-    <div>
-      <div></div>
-    </div>
+    <Container>
+      <span>{amount}</span>
+      <span>{desc}</span>
+    </Container>
   );
 }
