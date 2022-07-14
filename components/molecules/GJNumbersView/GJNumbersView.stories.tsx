@@ -8,4 +8,10 @@ const payload: IPayload = {
 export default payload;
 
 export const Basic = (args: any) => <GJNumbersView {...args} />;
-Basic.args = {};
+Basic.args = {
+  title: "Test title",
+  counts: [
+    [10, "Unique Users"],
+    [23, "Devices"],
+  ],
+};
