@@ -6,6 +6,8 @@ export const Container = styled.div`
   text-align: center;
 
   > span:first-child {
+    font-weight: bold;
+    font-size: xx-large;
   }
 
   > span:last-child {
