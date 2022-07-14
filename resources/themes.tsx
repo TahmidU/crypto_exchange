@@ -28,7 +28,7 @@ const fonts: IFonts = {
     small: `font-family: 'Nunito', sans-serif;
         font-size: 8px;`,
     regular: `font-family: 'Nunito', sans-serif;
-          font-size: 12px;`,
+          font-size: 14px;`,
     medium: `font-family: 'Nunito', sans-serif;
         font-size: 16px;`,
     big: `font-family: 'Nunito', sans-serif;

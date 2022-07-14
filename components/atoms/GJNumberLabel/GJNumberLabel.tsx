@@ -11,7 +11,7 @@ export default function GJNumberLabel({
   desc,
 }: IGJNumberLabelProps): ReactElement {
   return (
-    <Container>
+    <Container data-testid="GJNumberLabel">
       <span>{amount}</span>
       <span>{desc}</span>
     </Container>
