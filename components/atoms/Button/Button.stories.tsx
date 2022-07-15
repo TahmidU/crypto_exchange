@@ -8,4 +8,6 @@ const payload: IPayload = {
 export default payload;
 
 export const Basic = (args: any) => <Button {...args} />;
-Basic.args = {};
+Basic.args = {
+  title: "Button Title",
+};
