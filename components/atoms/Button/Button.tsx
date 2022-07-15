@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 
 interface IButtonProps {
   title: string;
-  onClick: () => void;
+  onClick?: () => void;
   className?: string;
 }
 

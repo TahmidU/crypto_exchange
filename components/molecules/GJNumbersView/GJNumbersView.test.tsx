@@ -5,7 +5,7 @@ import GJNumbersView from "./GJNumbersView";
 afterEach(cleanup);
 
 describe("GJNumbersView", () => {
-  test("show correct GJNumberLabels", () => {
+  test("Show correct GJNumberLabels", () => {
     // Given
     const expectedTitle = "Test Title";
     const counts: [number, string][] = [
