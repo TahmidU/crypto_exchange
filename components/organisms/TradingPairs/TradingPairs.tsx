@@ -1,11 +1,39 @@
+import { ButtonStyle, Container } from "./styles";
+
 import { ReactElement } from "react";
 
 interface ITradingPairsProps {}
 
 export default function TradingPairs({}: ITradingPairsProps): ReactElement {
   return (
-    <div>
-      <div></div>
-    </div>
+    <Container>
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+      <ButtonStyle title="sfds" />
+    </Container>
   );
 }
