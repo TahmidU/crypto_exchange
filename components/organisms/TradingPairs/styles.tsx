@@ -1,4 +1,5 @@
 import Button from "components/atoms/Button";
+import Color from "color";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -12,10 +13,23 @@ export const Container = styled.div`
 `;
 Container.displayName = "Container";
 
-export const ButtonStyle = styled(Button)`
+export const ButtonStyle = styled(Button)<{ selected: boolean }>`
   align-self: center;
   justify-self: center;
   width: 90%;
   height: 80px;
+  ${({ theme, selected }) =>
+    selected
+      ? `background-color: ${Color(theme.colours.red).alpha(0.4).toString()};`
+      : ""};
+
+  :hover {
+    ${({ theme, selected }) =>
+      selected
+        ? `background-color: ${Color(theme.colours.red).alpha(0.6).toString()};`
+        : `background-color: ${Color(theme.colours.almostBlack)
+            .alpha(0.1)
+            .toString()}`};
+  }
 `;
 ButtonStyle.displayName = "ButtonStyle";
