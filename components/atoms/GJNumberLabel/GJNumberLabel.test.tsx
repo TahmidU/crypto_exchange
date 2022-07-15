@@ -5,7 +5,7 @@ import GJNumberLabel from "./GJNumberLabel";
 afterEach(cleanup);
 
 describe("GJNumberLabel", () => {
-  test("show amount and desc", () => {
+  test("Show amount and desc", () => {
     // Given
     const expectedAmount = 5;
     const expectedDesc = "Hello World";
