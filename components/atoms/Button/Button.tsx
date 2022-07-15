@@ -5,15 +5,17 @@ interface IButtonProps {
   title: string;
   onClick?: () => void;
   className?: string;
+  dataTestId?: string;
 }
 
 export default function Button({
   title,
   onClick,
   className,
+  dataTestId = "Button",
 }: IButtonProps): ReactElement {
   return (
-    <Container className={className} onClick={onClick}>
+    <Container data-testid={dataTestId} className={className} onClick={onClick}>
       <span>{title}</span>
     </Container>
   );
