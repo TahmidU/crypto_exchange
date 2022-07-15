@@ -11,13 +11,12 @@ export const Container = styled.div`
   }
 
   > div:last-child {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 
     > div {
-      margin: 0 1rem;
+      align-self: center;
+      justify-self: center;
     }
   }
 `;

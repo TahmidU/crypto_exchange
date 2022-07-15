@@ -13,5 +13,6 @@ Basic.args = {
   counts: [
     [10, "Unique Users"],
     [23, "Devices"],
+    [76, "Activity"],
   ],
 };
