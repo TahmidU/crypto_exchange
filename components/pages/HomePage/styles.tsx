@@ -16,6 +16,7 @@ export const Container = styled.div`
 
     > div:first-child {
       justify-self: center;
+      align-self: center;
     }
   }
 `;

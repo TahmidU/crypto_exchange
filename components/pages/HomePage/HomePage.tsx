@@ -1,7 +1,8 @@
-import { ReactElement, useCallback } from "react";
+import { IBitstampTicker, ITradingPair } from "types/currency";
+import { ReactElement, useCallback, useState } from "react";
 
 import { Container } from "./styles";
-import { ITradingPair } from "types/currency";
+import GJNumbersView from "components/molecules/GJNumbersView";
 import TradingPairs from "components/organisms/TradingPairs";
 import _ from "lodash";
 import useCryptoRequests from "./useCryptoRequests";
@@ -15,6 +16,7 @@ const ON_CLICK_INTERVAL = 1000;
 export default function HomePage({
   tradingPairsInfo,
 }: IHomePageProps): ReactElement {
+  const [selectedCurrencyPair, setSelectedCurrencyPair] = useState("");
   const {
     bitstampTickerValues,
     bitfinexTickerValues,
@@ -39,18 +41,25 @@ export default function HomePage({
       <div>Test</div>
       <div>
         <div>
-          {tradingPairsInfo ? (
-            <TradingPairs
-              tradingPairs={tradingPairsInfo}
-              onClick={(selected: string) =>
-                debouncedHandleTradingPairClick(selected)
-              }
+          <TradingPairs
+            tradingPairs={tradingPairsInfo}
+            onClick={(selected: string) => {
+              debouncedHandleTradingPairClick(selected),
+                setSelectedCurrencyPair(selected);
+            }}
+          />
+        </div>
+        <div>
+          {bitstampTickerValues && (
+            <GJNumbersView
+              title={selectedCurrencyPair}
+              counts={Object.keys(bitstampTickerValues).map((_key) => [
+                Number(bitstampTickerValues[_key as keyof IBitstampTicker]),
+                _key,
+              ])}
             />
-          ) : (
-            <p>Loading</p>
           )}
         </div>
-        <div>{""}</div>
       </div>
     </Container>
   );
