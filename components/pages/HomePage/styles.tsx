@@ -30,6 +30,25 @@ export const Container = styled.div`
       align-self: center;
     }
   }
+
+  @media only screen and (max-width: 1248px) {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    > div:first-child {
+      margin-bottom: 2rem;
+    }
+
+    > div:last-child {
+      display: flex;
+      flex-direction: column;
+
+      > div:first-child {
+        margin-bottom: 2rem;
+      }
+    }
+  }
 `;
 Container.displayName = "Container";
 
