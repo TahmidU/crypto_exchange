@@ -24,16 +24,12 @@ export default function useCryptoRequests() {
   const { bitfinexApi, bitstampApi, coinbaseApi } = useAuth();
 
   useEffect(() => {
-    const debouncedGetBitstampTickerInfo = debounce(
-      getBitstampTickerInfo,
-      5000
-    );
     if (selectedTPairs) {
       const formattedCurrencyPair = selectedTPairs
         .split("/")
         .join("")
         .toLowerCase();
-      debouncedGetBitstampTickerInfo(formattedCurrencyPair);
+      getBitstampTickerInfo(formattedCurrencyPair);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTPairs]);
@@ -50,7 +46,7 @@ export default function useCryptoRequests() {
 
   return {
     selectedTPairs,
-    setSelectedTPairs,
+    setSelectedTPairs: debounce(setSelectedTPairs),
     bitstampTickerValues,
     bitfinexTickerValues,
     coinbaseTickerValues,

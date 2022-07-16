@@ -14,7 +14,7 @@ export default function TradingPairs({
   onClick,
   className,
 }: ITradingPairsProps): ReactElement {
-  const [selectedPairs, setSelectedPairs] = useState(tradingPairs[0].name);
+  const [selectedPairs, setSelectedPairs] = useState("");
 
   function onPairClicked(selectedPair: string) {
     setSelectedPairs(selectedPair), onClick?.(selectedPair);
