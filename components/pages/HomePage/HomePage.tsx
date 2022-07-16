@@ -21,14 +21,14 @@ export default function HomePage({
     bitstampTickerValues,
     bitfinexTickerValues,
     coinbaseTickerValues,
-    handleTradingPairClick,
+    handleCurrencyPairClick,
   } = useCryptoRequests();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedHandleTradingPairClick = useCallback(
+  const debouncedHandleCurrencyPairClick = useCallback(
     _.debounce(
       (selected) => {
-        handleTradingPairClick(selected);
+        handleCurrencyPairClick(selected);
       },
       ON_CLICK_INTERVAL,
       {}
@@ -44,7 +44,7 @@ export default function HomePage({
           <TradingPairs
             tradingPairs={tradingPairsInfo}
             onClick={(selected: string) => {
-              debouncedHandleTradingPairClick(selected),
+              debouncedHandleCurrencyPairClick(selected),
                 setSelectedCurrencyPair(selected);
             }}
           />

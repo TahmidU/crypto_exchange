@@ -20,7 +20,7 @@ export default function useCryptoRequests() {
 
   const { api } = useAuth();
 
-  function handleTradingPairClick(selected: string) {
+  function handleCurrencyPairClick(selected: string) {
     const formattedCurrencyPair = selected.split("/").join("").toLowerCase();
     getBitstampTickerInfo(formattedCurrencyPair);
   }
@@ -36,7 +36,7 @@ export default function useCryptoRequests() {
   }
 
   return {
-    handleTradingPairClick,
+    handleCurrencyPairClick,
     bitstampTickerValues,
     bitfinexTickerValues,
     coinbaseTickerValues,
