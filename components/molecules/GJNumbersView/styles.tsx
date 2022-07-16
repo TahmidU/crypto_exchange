@@ -4,10 +4,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  > p:first-child {
+  > span:first-child {
     text-align: start;
     ${({ theme }) => theme.fonts.main.regular};
     font-weight: bold;
+    margin: 0 0 2.5em 0;
   }
 
   > div:last-child {

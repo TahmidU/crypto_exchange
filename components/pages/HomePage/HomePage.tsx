@@ -1,7 +1,7 @@
+import { AvgNumberView, Container } from "./styles";
 import { IBitstampTicker, ITradingPair } from "types/currency";
 import { ReactElement, useCallback, useState } from "react";
 
-import { Container } from "./styles";
 import GJNumbersView from "components/molecules/GJNumbersView";
 import TradingPairs from "components/organisms/TradingPairs";
 import _ from "lodash";
@@ -13,11 +13,19 @@ interface IHomePageProps {
 
 const ON_CLICK_INTERVAL = 1000;
 
+/**                {(parseFloat(btcusdBitstampTickerValues.last) +
+                  bitfinexTickerValues[0][7] +
+                  parseFloat(
+                    coinbaseTickerValues.data.rates["USD" as keyof {}]
+                  )) /
+                  3} */
+
 export default function HomePage({
   tradingPairsInfo,
 }: IHomePageProps): ReactElement {
   const [selectedCurrencyPair, setSelectedCurrencyPair] = useState("");
   const {
+    btcusdBitstampTickerValues,
     bitstampTickerValues,
     bitfinexTickerValues,
     coinbaseTickerValues,
@@ -38,7 +46,28 @@ export default function HomePage({
 
   return (
     <Container>
-      <div>Test</div>
+      <div>
+        <div>
+          {btcusdBitstampTickerValues &&
+            bitfinexTickerValues &&
+            coinbaseTickerValues && (
+              <AvgNumberView
+                title="BTC Avg"
+                counts={[
+                  [
+                    (parseFloat(btcusdBitstampTickerValues.last) +
+                      bitfinexTickerValues[0][7] +
+                      parseFloat(
+                        coinbaseTickerValues.data.rates["USD" as keyof {}]
+                      )) /
+                      3,
+                    "Average",
+                  ],
+                ]}
+              />
+            )}
+        </div>
+      </div>
       <div>
         <div>
           <TradingPairs
@@ -50,7 +79,7 @@ export default function HomePage({
           />
         </div>
         <div>
-          {bitstampTickerValues && (
+          {bitstampTickerValues ? (
             <GJNumbersView
               title={selectedCurrencyPair}
               counts={Object.keys(bitstampTickerValues).map((_key) => [
@@ -58,6 +87,8 @@ export default function HomePage({
                 _key,
               ])}
             />
+          ) : (
+            <p>Please select a currency pair above</p>
           )}
         </div>
       </div>
