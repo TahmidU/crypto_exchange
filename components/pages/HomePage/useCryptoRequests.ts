@@ -21,7 +21,7 @@ export default function useCryptoRequests() {
     ICoinbaseTicker
   >();
 
-  const { bitfinexApi, bitstampApi, coinbaseApi } = useAuth();
+  const { api } = useAuth();
 
   useEffect(() => {
     if (selectedTPairs) {
@@ -35,8 +35,8 @@ export default function useCryptoRequests() {
   }, [selectedTPairs]);
 
   function getBitstampTickerInfo(currencyPair: string) {
-    bitstampApi
-      .get(`ticker/${currencyPair}`)
+    api
+      .get(`ticker/bitstamp/${currencyPair}`)
       .then((res) => {
         setBitstampTickerValues(res.data);
         console.log(res.data);
