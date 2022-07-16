@@ -5,12 +5,9 @@ import {
 } from "types/currency";
 import { useEffect, useState } from "react";
 
-import { debounce } from "utils";
 import useAuth from "hooks/useAuth";
 
 export default function useCryptoRequests() {
-  const [selectedTPairs, setSelectedTPairs] = useState<string>();
-
   const [bitstampTickerValues, setBitstampTickerValues] = useState<
     IBitstampTicker
   >();
@@ -23,16 +20,10 @@ export default function useCryptoRequests() {
 
   const { api } = useAuth();
 
-  useEffect(() => {
-    if (selectedTPairs) {
-      const formattedCurrencyPair = selectedTPairs
-        .split("/")
-        .join("")
-        .toLowerCase();
-      getBitstampTickerInfo(formattedCurrencyPair);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedTPairs]);
+  function handleTradingPairClick(selected: string) {
+    const formattedCurrencyPair = selected.split("/").join("").toLowerCase();
+    getBitstampTickerInfo(formattedCurrencyPair);
+  }
 
   function getBitstampTickerInfo(currencyPair: string) {
     api
@@ -45,8 +36,7 @@ export default function useCryptoRequests() {
   }
 
   return {
-    selectedTPairs,
-    setSelectedTPairs: debounce(setSelectedTPairs),
+    handleTradingPairClick,
     bitstampTickerValues,
     bitfinexTickerValues,
     coinbaseTickerValues,
