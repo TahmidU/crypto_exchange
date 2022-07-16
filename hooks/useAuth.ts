@@ -1,17 +1,15 @@
 import axios from "axios";
 
+/**
+ * https://api.coinbase.com/v2/
+ * https://api-pub.bitfinex.com/v2/
+ * https://www.bitstamp.net/api/v2/
+ */
+
 export default function useAuth() {
-  const coinbaseApi = axios.create({ baseURL: `https://api.coinbase.com/v2/` });
-  const bitfinexApi = axios.create({
-    baseURL: `https://api-pub.bitfinex.com/v2/`,
-  });
-  const bitstampApi = axios.create({
-    baseURL: `https://www.bitstamp.net/api/v2/`,
-  });
+  const api = axios.create({ baseURL: "api/" });
 
   return {
-    coinbaseApi,
-    bitfinexApi,
-    bitstampApi,
+    api,
   };
 }

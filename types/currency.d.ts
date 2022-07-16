@@ -8,3 +8,40 @@ export interface ITradingPair {
   counter_decimals: number;
   description: string;
 }
+
+export interface IBitstampTicker {
+  high: string;
+  last: string;
+  timestamp: string;
+  bid: string;
+  vwap: string;
+  volume: string;
+  low: string;
+  ask: string;
+  open: string;
+}
+
+export type BitfinexTicker = [
+  [
+    "string",
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number
+  ]
+];
+
+export interface ICoinbaseTicker {
+  data: {
+    currency: string;
+    rates: {
+      [string]: string;
+    };
+  };
+}
