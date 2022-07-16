@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { debounce } from "utils";
 import useAuth from "hooks/useAuth";
 
-export default function useCurrencyPair() {
+export default function useCryptoRequests() {
   const [selectedTPairs, setSelectedTPairs] = useState<string>();
 
   const [bitstampTickerValues, setBitstampTickerValues] = useState<

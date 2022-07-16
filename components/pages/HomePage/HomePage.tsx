@@ -2,7 +2,7 @@ import { Container } from "./styles";
 import { ITradingPair } from "types/currency";
 import { ReactElement } from "react";
 import TradingPairs from "components/organisms/TradingPairs";
-import useCurrencyPair from "./useCurrencyPair";
+import useCryptoRequests from "./useCryptoRequests";
 
 interface IHomePageProps {
   tradingPairsInfo: ITradingPair[];
@@ -17,7 +17,7 @@ export default function HomePage({
     bitstampTickerValues,
     bitfinexTickerValues,
     coinbaseTickerValues,
-  } = useCurrencyPair();
+  } = useCryptoRequests();
 
   return (
     <Container>
