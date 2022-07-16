@@ -2,43 +2,39 @@ import {
   BitfinexTicker,
   IBitstampTicker,
   ICoinbaseTicker,
-  ITradingPair,
 } from "types/currency";
 import { useEffect, useState } from "react";
 
+import { debounce } from "utils";
 import useAuth from "hooks/useAuth";
 
-interface ITickerValues {
-  bitstamp?: IBitstampTicker;
-  bitfinex?: BitfinexTicker;
-  coinbase?: ICoinbaseTicker;
-}
-
 export default function useCurrencyPair() {
-  const [tradingPairsInfo, setTradingPairsInfo] = useState<ITradingPair[]>();
-  const [tickerValues, setTickerValues] = useState<ITickerValues>();
   const [selectedTPairs, setSelectedTPairs] = useState<string>();
+
+  const [bitstampTickerValues, setBitstampTickerValues] = useState<
+    IBitstampTicker
+  >();
+  const [bitfinexTickerValues, setBitfinexTickerValues] = useState<
+    BitfinexTicker
+  >();
+  const [coinbaseTickerValues, setCoinbaseTickerValues] = useState<
+    ICoinbaseTicker
+  >();
+
   const { bitfinexApi, bitstampApi, coinbaseApi } = useAuth();
 
   useEffect(() => {
-    bitstampApi
-      .get("trading-pairs-info")
-      .then((res) => {
-        setTradingPairsInfo(res.data);
-      })
-      .catch((err) => console.log(err));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    tradingPairsInfo &&
-      tradingPairsInfo[0] &&
-      setSelectedTPairs(tradingPairsInfo[0].name);
-  }, [tradingPairsInfo]);
-
-  useEffect(() => {
-    selectedTPairs &&
-      getBitstampTickerInfo(selectedTPairs.split("/").join("").toLowerCase());
+    const debouncedGetBitstampTickerInfo = debounce(
+      getBitstampTickerInfo,
+      5000
+    );
+    if (selectedTPairs) {
+      const formattedCurrencyPair = selectedTPairs
+        .split("/")
+        .join("")
+        .toLowerCase();
+      debouncedGetBitstampTickerInfo(formattedCurrencyPair);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTPairs]);
 
@@ -46,16 +42,17 @@ export default function useCurrencyPair() {
     bitstampApi
       .get(`ticker/${currencyPair}`)
       .then((res) => {
-        setTickerValues((prev) => ({ ...prev, bitstamp: res.data }));
+        setBitstampTickerValues(res.data);
         console.log(res.data);
       })
       .catch((err) => console.log(err));
   }
 
   return {
-    tradingPairsInfo,
     selectedTPairs,
     setSelectedTPairs,
-    tickerValues,
+    bitstampTickerValues,
+    bitfinexTickerValues,
+    coinbaseTickerValues,
   };
 }

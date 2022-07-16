@@ -1,16 +1,22 @@
 import { Container } from "./styles";
+import { ITradingPair } from "types/currency";
 import { ReactElement } from "react";
 import TradingPairs from "components/organisms/TradingPairs";
 import useCurrencyPair from "./useCurrencyPair";
 
-interface IHomePageProps {}
+interface IHomePageProps {
+  tradingPairsInfo: ITradingPair[];
+}
 
-export default function HomePage({}: IHomePageProps): ReactElement {
+export default function HomePage({
+  tradingPairsInfo,
+}: IHomePageProps): ReactElement {
   const {
-    tradingPairsInfo,
     selectedTPairs,
     setSelectedTPairs,
-    tickerValues,
+    bitstampTickerValues,
+    bitfinexTickerValues,
+    coinbaseTickerValues,
   } = useCurrencyPair();
 
   return (
@@ -27,7 +33,7 @@ export default function HomePage({}: IHomePageProps): ReactElement {
             <p>Loading</p>
           )}
         </div>
-        <div>{tickerValues?.bitstamp?.bid || ""}</div>
+        <div>{""}</div>
       </div>
     </Container>
   );
