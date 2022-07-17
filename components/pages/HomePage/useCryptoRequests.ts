@@ -9,6 +9,7 @@ import { IChartPoints } from "types/chart";
 import useAuth from "hooks/useAuth";
 
 interface IIntervalLastPrice {
+  currency: string;
   currentTime: number;
   data: IChartPoints[];
 }
@@ -24,7 +25,8 @@ export default function useCryptoRequests() {
     ICoinbaseTicker
   >();
 
-  const [btcusdLastPrice, setBtcusdLastPrice] = useState<IIntervalLastPrice>({
+  const [trackLastPrice, setTrackLastPrice] = useState<IIntervalLastPrice>({
+    currency: "",
     currentTime: 0,
     data: [],
   });
@@ -32,9 +34,12 @@ export default function useCryptoRequests() {
   const { api } = useAuth();
 
   useEffect(() => {
+    setTrackLastPrice((prev) => ({ ...prev, data: [] }));
+
     const intervalReq = setInterval(() => {
       getBitstampTickerInfo("btcusd").then((data: IBitstampTicker) =>
-        setBtcusdLastPrice((prev) => ({
+        setTrackLastPrice((prev) => ({
+          ...prev,
           currentTime: prev.currentTime + 10,
           data: [...prev.data, { x: prev.currentTime, y: Number(data.last) }],
         }))
@@ -43,7 +48,7 @@ export default function useCryptoRequests() {
 
     return () => clearInterval(intervalReq);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [trackLastPrice.currency]);
 
   // Handlers
 
@@ -68,6 +73,8 @@ export default function useCryptoRequests() {
     getCoinbaseTickerInfo(formattedCoinbaseCurrency).then((data) =>
       setCoinbaseTickerValues(data)
     );
+
+    setTrackLastPrice((prev) => ({ ...prev, currency: selected }));
   }
 
   // HTTP requests
@@ -104,6 +111,6 @@ export default function useCryptoRequests() {
     bitstampTickerValues,
     bitfinexTickerValues,
     coinbaseTickerValues,
-    btcusdLastPrice: btcusdLastPrice.data,
+    trackLastPrice: trackLastPrice.data,
   };
 }
