@@ -33,7 +33,7 @@ export default function HomePage({
     bitfinexTickerValues,
     coinbaseTickerValues,
     handleCurrencyPairClick,
-    btcusdLastPrice,
+    trackLastPrice,
   } = useCryptoRequests();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,8 +48,13 @@ export default function HomePage({
     []
   );
 
+  // ! Sometimes bitfinex returns nulls for some its values
   const lastPriceAverage =
-    bitstampTickerValues?.last && bitfinexTickerValues && coinbaseTickerValues
+    bitstampTickerValues?.last &&
+    bitfinexTickerValues &&
+    bitfinexTickerValues[0] &&
+    bitfinexTickerValues[0][7] &&
+    coinbaseTickerValues
       ? (parseFloat(bitstampTickerValues.last) +
           bitfinexTickerValues[0][7] +
           parseFloat(coinbaseTickerValues.data.rates["USD" as keyof {}])) /
@@ -69,11 +74,13 @@ export default function HomePage({
           <LineChartStyle
             data={[
               {
-                id: "BTC/USD",
+                id: `${selectedCurrencyPair}`,
                 color: "hsl(104, 70%, 50%)",
-                data: btcusdLastPrice,
+                data: trackLastPrice,
               },
             ]}
+            bottomAxisName="Time (in seconds)"
+            leftAxisName="Last Price Value"
           />
         </LineChartWrapper>
       </SpecificCurrencyInfoContainer>

@@ -6,10 +6,14 @@ import { Serie } from "@nivo/line";
 
 interface ILineChartProps {
   data?: Serie[];
+  bottomAxisName?: string;
+  leftAxisName?: string;
 }
 
 export default function LineChart({
   data = [],
+  bottomAxisName,
+  leftAxisName,
 }: ILineChartProps): ReactElement {
   const margin: Margin = { top: 50, right: 110, bottom: 50, left: 60 };
 
@@ -30,17 +34,17 @@ export default function LineChart({
     tickSize: 5,
     tickPadding: 5,
     tickRotation: 0,
-    legend: "Time (in seconds)",
+    legend: bottomAxisName,
     legendOffset: 36,
     legendPosition: "middle",
   };
 
   const axisLeft: any = {
     orient: "left",
-    tickSize: 5,
-    tickPadding: 5,
+    tickSize: 3,
+    tickPadding: 1,
     tickRotation: 0,
-    legend: "Last Price Value",
+    legend: leftAxisName,
     legendOffset: -55,
     legendPosition: "middle",
   };
