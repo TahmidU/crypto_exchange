@@ -1,11 +1,13 @@
+import { LineChartStyle } from "./styles";
 import { ReactElement } from "react";
+import { Serie } from "@nivo/line";
 
-interface ILineChartProps {}
+interface ILineChartProps {
+  data?: Serie[];
+}
 
-export default function LineChart({}: ILineChartProps): ReactElement {
-  return (
-    <div>
-      <div></div>
-    </div>
-  );
+export default function LineChart({
+  data = [],
+}: ILineChartProps): ReactElement {
+  return <LineChartStyle data={data} />;
 }

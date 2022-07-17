@@ -1,4 +1,6 @@
 import GJNumbersView from "components/molecules/GJNumbersView";
+import { ResponsiveLine } from "@nivo/line";
+import dynamic from "next/dynamic";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -18,7 +20,7 @@ Container.displayName = "Container";
 
 export const SpecificCurrencyInfoContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -63,3 +65,30 @@ export const AvgNumberView = styled(GJNumbersView)`
   }
 `;
 AvgNumberView.displayName = "AvgNumberView";
+
+const baseLineChartWidth = "800px";
+const baseLineChartHeight = "500px";
+export const LineChartWrapper = styled.div`
+  width: ${baseLineChartWidth};
+  height: ${baseLineChartHeight};
+  margin-top: 1rem;
+
+  @media only screen and (max-width: 1428px) {
+    width: calc(${baseLineChartWidth} * 0.8);
+    height: calc(${baseLineChartHeight} * 0.8);
+  }
+
+  @media only screen and (max-width: 672px) {
+    width: calc(${baseLineChartWidth} * 0.6);
+    height: calc(${baseLineChartHeight} * 0.6);
+  }
+
+  @media only screen and (max-width: 500px) {
+    width: calc(${baseLineChartWidth} * 0.4);
+    height: calc(${baseLineChartHeight} * 0.4);
+  }
+`;
+LineChartWrapper.displayName = "LineChartWrapper";
+
+export const LineChartStyle = styled(ResponsiveLine)``;
+LineChartStyle.displayName = "LineChartStyle";
