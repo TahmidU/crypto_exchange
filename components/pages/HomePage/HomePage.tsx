@@ -1,24 +1,28 @@
-import { AvgNumberView, Container } from "./styles";
+import {
+  AvgNumberView,
+  Container,
+  CurrencyInfoContainer,
+  LineChartWrapper,
+  SpecificCurrencyInfoContainer,
+} from "./styles";
 import { IBitstampTicker, ITradingPair } from "types/currency";
 import { ReactElement, useCallback, useState } from "react";
 
 import GJNumbersView from "components/molecules/GJNumbersView";
 import TradingPairs from "components/organisms/TradingPairs";
 import _ from "lodash";
+import dynamic from "next/dynamic";
 import useCryptoRequests from "./useCryptoRequests";
+
+const LineChartStyle = dynamic(() => import("components/atoms/LineChart"), {
+  ssr: false,
+});
 
 interface IHomePageProps {
   tradingPairsInfo: ITradingPair[];
 }
 
 const ON_CLICK_INTERVAL = 1000;
-
-/**                {(parseFloat(btcusdBitstampTickerValues.last) +
-                  bitfinexTickerValues[0][7] +
-                  parseFloat(
-                    coinbaseTickerValues.data.rates["USD" as keyof {}]
-                  )) /
-                  3} */
 
 export default function HomePage({
   tradingPairsInfo,
@@ -30,6 +34,7 @@ export default function HomePage({
     bitfinexTickerValues,
     coinbaseTickerValues,
     handleCurrencyPairClick,
+    btcusdLastPrice,
   } = useCryptoRequests();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,7 +51,7 @@ export default function HomePage({
 
   return (
     <Container>
-      <div>
+      <SpecificCurrencyInfoContainer>
         <div>
           {btcusdBitstampTickerValues &&
             bitfinexTickerValues &&
@@ -67,8 +72,19 @@ export default function HomePage({
               />
             )}
         </div>
-      </div>
-      <div>
+        <LineChartWrapper>
+          <LineChartStyle
+            data={[
+              {
+                id: "BTC/USD",
+                color: "hsl(104, 70%, 50%)",
+                data: btcusdLastPrice,
+              },
+            ]}
+          />
+        </LineChartWrapper>
+      </SpecificCurrencyInfoContainer>
+      <CurrencyInfoContainer>
         <div>
           <TradingPairs
             tradingPairs={tradingPairsInfo}
@@ -91,7 +107,7 @@ export default function HomePage({
             <p>Please select a currency pair above</p>
           )}
         </div>
-      </div>
+      </CurrencyInfoContainer>
     </Container>
   );
 }

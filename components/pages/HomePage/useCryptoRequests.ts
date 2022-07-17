@@ -5,12 +5,19 @@ import {
 } from "types/currency";
 import { useEffect, useState } from "react";
 
+import { IChartPoints } from "types/chart";
 import useAuth from "hooks/useAuth";
+
+interface IIntervalLastPrice {
+  currentTime: number;
+  data: IChartPoints[];
+}
 
 export default function useCryptoRequests() {
   const [btcusdBitstampTickerValues, setBtcusdBitstampTickerValues] = useState<
     IBitstampTicker
   >();
+
   const [bitstampTickerValues, setBitstampTickerValues] = useState<
     IBitstampTicker
   >();
@@ -20,6 +27,11 @@ export default function useCryptoRequests() {
   const [coinbaseTickerValues, setCoinbaseTickerValues] = useState<
     ICoinbaseTicker
   >();
+
+  const [btcusdLastPrice, setBtcusdLastPrice] = useState<IIntervalLastPrice>({
+    currentTime: 0,
+    data: [],
+  });
 
   const { api } = useAuth();
 
@@ -31,8 +43,21 @@ export default function useCryptoRequests() {
       setBitfinexTickerValues(data)
     );
     getCoinbaseTickerInfo("BTC").then((data) => setCoinbaseTickerValues(data));
+
+    const intervalReq = setInterval(() => {
+      getBitstampTickerInfo("btcusd").then((data: IBitstampTicker) =>
+        setBtcusdLastPrice((prev) => ({
+          currentTime: prev.currentTime + 10,
+          data: [...prev.data, { x: prev.currentTime, y: Number(data.last) }],
+        }))
+      );
+    }, 10000);
+
+    return () => clearInterval(intervalReq);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Handlers
 
   function handleCurrencyPairClick(selected: string) {
     const formattedCurrencyPair = selected.split("/").join("").toLowerCase();
@@ -40,6 +65,8 @@ export default function useCryptoRequests() {
       setBitstampTickerValues(data)
     );
   }
+
+  // HTTP requests
 
   async function getCoinbaseTickerInfo(currency: string) {
     return await api
@@ -74,5 +101,6 @@ export default function useCryptoRequests() {
     bitstampTickerValues,
     bitfinexTickerValues,
     coinbaseTickerValues,
+    btcusdLastPrice: btcusdLastPrice.data,
   };
 }
