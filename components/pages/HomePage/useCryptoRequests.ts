@@ -37,16 +37,23 @@ export default function useCryptoRequests() {
     setTrackLastPrice((prev) => ({ ...prev, data: [] }));
 
     const intervalReq = setInterval(() => {
-      getBitstampTickerInfo("btcusd").then((data: IBitstampTicker) =>
-        setTrackLastPrice((prev) => ({
-          ...prev,
-          currentTime: prev.currentTime + 10,
-          data: [...prev.data, { x: prev.currentTime, y: Number(data.last) }],
-        }))
-      );
+      trackLastPrice.currency !== "" &&
+        getBitstampTickerInfo(trackLastPrice.currency).then(
+          (data: IBitstampTicker) =>
+            setTrackLastPrice((prev) => ({
+              ...prev,
+              currentTime: prev.currentTime + 10,
+              data: [
+                ...prev.data,
+                { x: prev.currentTime, y: Number(data.last) },
+              ],
+            }))
+        );
     }, 10000);
 
-    return () => clearInterval(intervalReq);
+    return () => {
+      clearInterval(intervalReq);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trackLastPrice.currency]);
 
@@ -76,7 +83,7 @@ export default function useCryptoRequests() {
 
     setTrackLastPrice((prev) => ({
       ...prev,
-      currency: selected,
+      currency: formattedBitstampCurrency,
       currentTime: 0,
     }));
   }
