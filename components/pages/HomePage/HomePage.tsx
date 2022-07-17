@@ -29,7 +29,6 @@ export default function HomePage({
 }: IHomePageProps): ReactElement {
   const [selectedCurrencyPair, setSelectedCurrencyPair] = useState("");
   const {
-    btcusdBitstampTickerValues,
     bitstampTickerValues,
     bitfinexTickerValues,
     coinbaseTickerValues,
@@ -41,7 +40,7 @@ export default function HomePage({
   const debouncedHandleCurrencyPairClick = useCallback(
     _.debounce(
       (selected) => {
-        handleCurrencyPairClick(selected);
+        handleCurrencyPairClick(selected), setSelectedCurrencyPair(selected);
       },
       ON_CLICK_INTERVAL,
       {}
@@ -49,28 +48,22 @@ export default function HomePage({
     []
   );
 
+  const lastPriceAverage =
+    bitstampTickerValues?.last && bitfinexTickerValues && coinbaseTickerValues
+      ? (parseFloat(bitstampTickerValues.last) +
+          bitfinexTickerValues[0][7] +
+          parseFloat(coinbaseTickerValues.data.rates["USD" as keyof {}])) /
+        3
+      : 0;
+
   return (
     <Container>
       <SpecificCurrencyInfoContainer>
         <div>
-          {btcusdBitstampTickerValues &&
-            bitfinexTickerValues &&
-            coinbaseTickerValues && (
-              <AvgNumberView
-                title="BTC Avg"
-                counts={[
-                  [
-                    (parseFloat(btcusdBitstampTickerValues.last) +
-                      bitfinexTickerValues[0][7] +
-                      parseFloat(
-                        coinbaseTickerValues.data.rates["USD" as keyof {}]
-                      )) /
-                      3,
-                    "Average",
-                  ],
-                ]}
-              />
-            )}
+          <AvgNumberView
+            title={`${selectedCurrencyPair} Avg`}
+            counts={[[lastPriceAverage, "Average"]]}
+          />
         </div>
         <LineChartWrapper>
           <LineChartStyle
@@ -89,8 +82,7 @@ export default function HomePage({
           <TradingPairs
             tradingPairs={tradingPairsInfo}
             onClick={(selected: string) => {
-              debouncedHandleCurrencyPairClick(selected),
-                setSelectedCurrencyPair(selected);
+              debouncedHandleCurrencyPairClick(selected);
             }}
           />
         </div>
