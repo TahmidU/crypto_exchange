@@ -14,10 +14,6 @@ interface IIntervalLastPrice {
 }
 
 export default function useCryptoRequests() {
-  const [btcusdBitstampTickerValues, setBtcusdBitstampTickerValues] = useState<
-    IBitstampTicker
-  >();
-
   const [bitstampTickerValues, setBitstampTickerValues] = useState<
     IBitstampTicker
   >();
@@ -36,14 +32,6 @@ export default function useCryptoRequests() {
   const { api } = useAuth();
 
   useEffect(() => {
-    getBitstampTickerInfo("btcusd").then((data) =>
-      setBtcusdBitstampTickerValues(data)
-    );
-    getBitfinexTickerInfo("tBTCUSD").then((data) =>
-      setBitfinexTickerValues(data)
-    );
-    getCoinbaseTickerInfo("BTC").then((data) => setCoinbaseTickerValues(data));
-
     const intervalReq = setInterval(() => {
       getBitstampTickerInfo("btcusd").then((data: IBitstampTicker) =>
         setBtcusdLastPrice((prev) => ({
@@ -60,9 +48,25 @@ export default function useCryptoRequests() {
   // Handlers
 
   function handleCurrencyPairClick(selected: string) {
-    const formattedCurrencyPair = selected.split("/").join("").toLowerCase();
-    getBitstampTickerInfo(formattedCurrencyPair).then((data) =>
+    const formattedBitstampCurrency = selected
+      .split("/")
+      .join("")
+      .toLowerCase();
+    getBitstampTickerInfo(formattedBitstampCurrency).then((data) =>
       setBitstampTickerValues(data)
+    );
+
+    const formattedBitfinexCurrency = `t${selected
+      .split("/")
+      .join("")
+      .toUpperCase()}`;
+    getBitfinexTickerInfo(formattedBitfinexCurrency).then((data) =>
+      setBitfinexTickerValues(data)
+    );
+
+    const formattedCoinbaseCurrency = selected.split("/")[0].toUpperCase();
+    getCoinbaseTickerInfo(formattedCoinbaseCurrency).then((data) =>
+      setCoinbaseTickerValues(data)
     );
   }
 
@@ -97,7 +101,6 @@ export default function useCryptoRequests() {
 
   return {
     handleCurrencyPairClick,
-    btcusdBitstampTickerValues,
     bitstampTickerValues,
     bitfinexTickerValues,
     coinbaseTickerValues,
