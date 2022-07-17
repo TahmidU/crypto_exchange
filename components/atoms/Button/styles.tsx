@@ -7,8 +7,10 @@ export const Container = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  width: 175px;
-  height: 60px;
+  max-width: 175px;
+  width: 100%;
+  max-height: 60px;
+  height: 100%;
   border: 1px solid
     ${({ theme }) => Color(theme.colours.almostBlack).alpha(0.2).toString()};
   border-radius: 12px;

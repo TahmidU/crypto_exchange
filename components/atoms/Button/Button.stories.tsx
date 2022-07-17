@@ -7,7 +7,11 @@ const payload: IPayload = {
 };
 export default payload;
 
-export const Basic = (args: any) => <Button {...args} />;
+export const Basic = (args: any) => (
+  <div style={{ width: "100%", height: "100vh" }}>
+    <Button {...args} />
+  </div>
+);
 Basic.args = {
   title: "Button Title",
 };
