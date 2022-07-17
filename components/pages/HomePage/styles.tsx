@@ -83,9 +83,8 @@ export const LineChartWrapper = styled.div`
     height: calc(${baseLineChartHeight} * 0.6);
   }
 
-  @media only screen and (max-width: 500px) {
-    width: calc(${baseLineChartWidth} * 0.4);
-    height: calc(${baseLineChartHeight} * 0.4);
+  @media only screen and (max-width: 480px) {
+    width: 100%;
   }
 `;
 LineChartWrapper.displayName = "LineChartWrapper";

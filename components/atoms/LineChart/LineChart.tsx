@@ -41,7 +41,7 @@ export default function LineChart({
     tickPadding: 5,
     tickRotation: 0,
     legend: "Last Price Value",
-    legendOffset: -40,
+    legendOffset: -55,
     legendPosition: "middle",
   };
 

@@ -35,6 +35,7 @@ export default function HomePage({
     bitfinexTickerValues,
     coinbaseTickerValues,
     handleCurrencyPairClick,
+    btcusdLastPrice,
   } = useCryptoRequests();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,13 +78,8 @@ export default function HomePage({
             data={[
               {
                 id: "BTC/USD",
-                color: "hsl(104,70%,50%)",
-                data: [
-                  { x: 0, y: 0 },
-                  { x: 5, y: 25 },
-                  { x: 10, y: 100 },
-                  { x: 15, y: 225 },
-                ],
+                color: "hsl(104, 70%, 50%)",
+                data: btcusdLastPrice,
               },
             ]}
           />
