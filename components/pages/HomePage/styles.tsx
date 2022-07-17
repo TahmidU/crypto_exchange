@@ -53,7 +53,7 @@ export const CurrencyInfoContainer = styled.div`
 
     > div:first-child {
       justify-content: center;
-      margin-bottom: 2rem;
+      margin-bottom: 4rem;
     }
   }
 `;
@@ -71,7 +71,7 @@ const baseLineChartHeight = "500px";
 export const LineChartWrapper = styled.div`
   width: ${baseLineChartWidth};
   height: ${baseLineChartHeight};
-  margin-top: 1rem;
+  margin-bottom: 2rem;
 
   @media only screen and (max-width: 1428px) {
     width: calc(${baseLineChartWidth} * 0.8);
