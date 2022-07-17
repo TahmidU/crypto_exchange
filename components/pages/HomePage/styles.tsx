@@ -28,6 +28,9 @@ export const Container = styled.div`
     > div:first-child {
       justify-self: center;
       align-self: center;
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
   }
 
