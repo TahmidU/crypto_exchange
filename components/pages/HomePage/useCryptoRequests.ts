@@ -74,7 +74,11 @@ export default function useCryptoRequests() {
       setCoinbaseTickerValues(data)
     );
 
-    setTrackLastPrice((prev) => ({ ...prev, currency: selected }));
+    setTrackLastPrice((prev) => ({
+      ...prev,
+      currency: selected,
+      currentTime: 0,
+    }));
   }
 
   // HTTP requests

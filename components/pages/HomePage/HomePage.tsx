@@ -48,6 +48,7 @@ export default function HomePage({
     []
   );
 
+  // ! Sometimes bitfinex returns nulls for some its values
   const lastPriceAverage =
     bitstampTickerValues?.last &&
     bitfinexTickerValues &&
@@ -78,6 +79,8 @@ export default function HomePage({
                 data: trackLastPrice,
               },
             ]}
+            bottomAxisName="Time (in seconds)"
+            leftAxisName="Last Price Value"
           />
         </LineChartWrapper>
       </SpecificCurrencyInfoContainer>
