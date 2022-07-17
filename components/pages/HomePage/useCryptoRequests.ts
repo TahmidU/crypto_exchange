@@ -17,6 +17,7 @@ export default function useCryptoRequests() {
   const [btcusdBitstampTickerValues, setBtcusdBitstampTickerValues] = useState<
     IBitstampTicker
   >();
+
   const [bitstampTickerValues, setBitstampTickerValues] = useState<
     IBitstampTicker
   >();
@@ -26,6 +27,7 @@ export default function useCryptoRequests() {
   const [coinbaseTickerValues, setCoinbaseTickerValues] = useState<
     ICoinbaseTicker
   >();
+
   const [btcusdLastPrice, setBtcusdLastPrice] = useState<IIntervalLastPrice>({
     currentTime: 0,
     data: [],
@@ -41,10 +43,7 @@ export default function useCryptoRequests() {
       setBitfinexTickerValues(data)
     );
     getCoinbaseTickerInfo("BTC").then((data) => setCoinbaseTickerValues(data));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  useEffect(() => {
     const intervalReq = setInterval(() => {
       getBitstampTickerInfo("btcusd").then((data: IBitstampTicker) =>
         setBtcusdLastPrice((prev) => ({

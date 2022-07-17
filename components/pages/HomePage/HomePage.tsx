@@ -9,7 +9,6 @@ import { IBitstampTicker, ITradingPair } from "types/currency";
 import { ReactElement, useCallback, useState } from "react";
 
 import GJNumbersView from "components/molecules/GJNumbersView";
-import { ResponsiveLine } from "@nivo/line";
 import TradingPairs from "components/organisms/TradingPairs";
 import _ from "lodash";
 import dynamic from "next/dynamic";
