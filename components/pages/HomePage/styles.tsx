@@ -19,18 +19,17 @@ export const Container = styled.div`
     display: grid;
     grid-template-rows: 40% 60%;
 
-    p {
-      ${({ theme }) => theme.fonts.main.bigger};
-      text-align: center;
-      font-weight: bold;
-    }
-
     > div:first-child {
       justify-self: center;
       align-self: center;
       width: 100%;
       display: flex;
-      justify-content: center;
+    }
+
+    p {
+      ${({ theme }) => theme.fonts.main.bigger};
+      text-align: center;
+      font-weight: bold;
     }
   }
 
@@ -48,10 +47,17 @@ export const Container = styled.div`
       flex-direction: column;
 
       > div:first-child {
+        justify-content: center;
         margin-bottom: 2rem;
       }
     }
   }
+
+  /*@media only screen and (max-width: 672px) {
+    > div:last-child > div:last-child > div:first-child > div:last-child {
+      grid-template-columns: 1fr 1fr;
+    }
+  }*/
 `;
 Container.displayName = "Container";
 

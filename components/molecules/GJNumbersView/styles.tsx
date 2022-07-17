@@ -20,5 +20,23 @@ export const Container = styled.div`
       justify-self: center;
     }
   }
+
+  @media only screen and (max-width: 672px) {
+    > div:last-child {
+      grid-template-columns: 1fr 1fr;
+
+      > div {
+        margin-bottom: 1em;
+
+        > span:first-child {
+          ${({ theme }) => theme.fonts.main.big};
+        }
+
+        > span:last-child {
+          ${({ theme }) => theme.fonts.main.regular};
+        }
+      }
+    }
+  }
 `;
 Container.displayName = "Container";

@@ -11,13 +11,20 @@ export const Container = styled.div`
   max-width: 800px;
   width: 100%;
   row-gap: 1rem;
+
+  @media only screen and (max-width: 586px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media only screen and (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 `;
 Container.displayName = "Container";
 
 export const ButtonStyle = styled(Button)<{ selected: boolean }>`
   align-self: center;
   justify-self: center;
-  //width: 90%;
   height: 80px;
   ${({ theme, selected }) =>
     selected

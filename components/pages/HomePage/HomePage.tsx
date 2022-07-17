@@ -81,7 +81,7 @@ export default function HomePage({
         <div>
           {bitstampTickerValues ? (
             <GJNumbersView
-              title={selectedCurrencyPair}
+              title={`${selectedCurrencyPair} (contents will update 1s after selecting a currency pair)`}
               counts={Object.keys(bitstampTickerValues).map((_key) => [
                 Number(bitstampTickerValues[_key as keyof IBitstampTicker]),
                 _key,
