@@ -76,12 +76,13 @@ export default function HomePage({
           <LineChartStyle
             data={[
               {
-                id: "blah",
+                id: "BTC/USD",
                 color: "hsl(104,70%,50%)",
                 data: [
                   { x: 0, y: 0 },
                   { x: 5, y: 25 },
                   { x: 10, y: 100 },
+                  { x: 15, y: 225 },
                 ],
               },
             ]}
