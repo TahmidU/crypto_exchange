@@ -1,4 +1,9 @@
-import { AvgNumberView, Container } from "./styles";
+import {
+  AvgNumberView,
+  Container,
+  CurrencyInfoContainer,
+  SpecificCurrencyInfoContainer,
+} from "./styles";
 import { IBitstampTicker, ITradingPair } from "types/currency";
 import { ReactElement, useCallback, useState } from "react";
 
@@ -46,7 +51,7 @@ export default function HomePage({
 
   return (
     <Container>
-      <div>
+      <SpecificCurrencyInfoContainer>
         <div>
           {btcusdBitstampTickerValues &&
             bitfinexTickerValues &&
@@ -67,8 +72,8 @@ export default function HomePage({
               />
             )}
         </div>
-      </div>
-      <div>
+      </SpecificCurrencyInfoContainer>
+      <CurrencyInfoContainer>
         <div>
           <TradingPairs
             tradingPairs={tradingPairsInfo}
@@ -91,7 +96,7 @@ export default function HomePage({
             <p>Please select a currency pair above</p>
           )}
         </div>
-      </div>
+      </CurrencyInfoContainer>
     </Container>
   );
 }
