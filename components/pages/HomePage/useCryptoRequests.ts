@@ -14,6 +14,8 @@ interface IIntervalLastPrice {
   data: IChartPoints[];
 }
 
+const GRAPH_INTERVAL_MS = 10000;
+
 export default function useCryptoRequests() {
   const [bitstampTickerValues, setBitstampTickerValues] = useState<
     IBitstampTicker
@@ -34,22 +36,18 @@ export default function useCryptoRequests() {
   const { api } = useAuth();
 
   useEffect(() => {
-    setTrackLastPrice((prev) => ({ ...prev, data: [] }));
+    if (trackLastPrice.currency === "") return;
 
     const intervalReq = setInterval(() => {
-      trackLastPrice.currency !== "" &&
-        getBitstampTickerInfo(trackLastPrice.currency).then(
-          (data: IBitstampTicker) =>
-            setTrackLastPrice((prev) => ({
-              ...prev,
-              currentTime: prev.currentTime + 10,
-              data: [
-                ...prev.data,
-                { x: prev.currentTime, y: Number(data.last) },
-              ],
-            }))
-        );
-    }, 10000);
+      getBitstampTickerInfo(trackLastPrice.currency).then(
+        (data: IBitstampTicker) =>
+          setTrackLastPrice((prev) => ({
+            ...prev,
+            currentTime: prev.currentTime + GRAPH_INTERVAL_MS / 1000,
+            data: [...prev.data, { x: prev.currentTime, y: Number(data.last) }],
+          }))
+      );
+    }, GRAPH_INTERVAL_MS);
 
     return () => {
       clearInterval(intervalReq);
@@ -81,11 +79,11 @@ export default function useCryptoRequests() {
       setCoinbaseTickerValues(data)
     );
 
-    setTrackLastPrice((prev) => ({
-      ...prev,
+    setTrackLastPrice({
+      data: [],
       currency: formattedBitstampCurrency,
       currentTime: 0,
-    }));
+    });
   }
 
   // HTTP requests

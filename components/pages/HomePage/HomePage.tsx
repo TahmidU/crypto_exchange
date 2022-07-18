@@ -22,7 +22,7 @@ interface IHomePageProps {
   tradingPairsInfo: ITradingPair[];
 }
 
-const ON_CLICK_INTERVAL = 1000;
+const ON_CLICK_INTERVAL = 500;
 
 export default function HomePage({
   tradingPairsInfo,
@@ -96,7 +96,7 @@ export default function HomePage({
         <div>
           {bitstampTickerValues ? (
             <GJNumbersView
-              title={`${selectedCurrencyPair} (contents will update 1s after selecting a currency pair)`}
+              title={`${selectedCurrencyPair} (contents will update 0.5s after selecting a currency pair)`}
               counts={Object.keys(bitstampTickerValues).map((_key) => [
                 Number(bitstampTickerValues[_key as keyof IBitstampTicker]),
                 _key,
